@@ -1,4 +1,4 @@
-
+const { Todo } = require('../models')
 
 const getTodos = (req, res) => {
     res.render('welcome');
@@ -7,9 +7,9 @@ const getTodos = (req, res) => {
 
 
 const  createTodos = async (req, res) => {
-  
-    // const todo = await Todo.create({ name: req.title,description: req.description,due_date:req.due_date });
-    res.json(req.body);
+    let data = req.body;
+    const todo = await Todo.create({ name: data.title,description: data.description,due_date:data.due_date });
+    res.redirect('back'); 
 };
 
 

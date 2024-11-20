@@ -1,0 +1,38 @@
+
+
+  .gradient-custom-2 {
+    /* fallback for old browsers */
+    background: #7e40f6;
+  
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(
+      to right,
+      rgba(126, 64, 246, 1),
+      rgba(80, 139, 252, 1)
+    );
+  
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(
+      to right,
+      rgba(126, 64, 246, 1),
+      rgba(80, 139, 252, 1)
+    );
+  }
+
+  button {
+    background: 
+      linear-gradient(    rgba(126, 64, 246, 1),     rgba(126, 64, 246, 1)) padding-box,
+      linear-gradient(60deg, #00f, #00e8ff) border-box;
+    color: #313149;
+    padding: 20px 70px;
+    border: 5px solid transparent;
+    border-radius: 40px;
+    display: inline-block;
+ 
+  }
+
+  .required:after {
+    color: #d73925;
+    content: '*';
+    display: inline;
+}

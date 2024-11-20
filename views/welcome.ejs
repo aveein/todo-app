@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <!-- Stylesheet -->
+<link rel="stylesheet" href="date-time/css/bootstrap-datetimepicker.css" />
+
+  
+    <link rel="stylesheet" href="style.css" />
+    <title>Todo App</title>
+  </head>
+  <body>
+    <section class="gradient-custom-2">
+      <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col">
+            <div
+              class="card"
+              id="list1"
+              style="border-radius: 0.75rem; background-color: #eff1f2"
+            >
+            <!-- show modal -->
+            <%- include('./partials/modal.ejs') %>
+              <div class="card-body py-4 px-4 px-md-5">
+                <div class="text-center pt-3 pb-2">
+                  <img
+                    src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-todo-list/check1.webp"
+                    alt="Check"
+                    width="60"
+                  />
+                  <h2 class="my-4">Task List</h2>
+                </div>
+                <div class="d-flex flex-row-reverse">
+                  <button
+                    type="button"
+                    data-mdb-button-init
+                    data-mdb-ripple-init
+                    class="btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
+                    Add
+                  </button>
+                </div>
+
+                <hr class="my-2" />
+
+                <div
+                  class="d-flex justify-content-end align-items-center mb-4 pt-2 pb-3"
+                >
+                  <p class="small mb-0 me-2 text-muted">Filter</p>
+                  <select data-mdb-select-init>
+                    <option value="1">All</option>
+                    <option value="2">Completed</option>
+                    <option value="3">Active</option>
+                    <option value="4">Has due date</option>
+                  </select>
+                  <p class="small mb-0 ms-4 me-2 text-muted">Sort</p>
+                  <select data-mdb-select-init>
+                    <option value="1">Added date</option>
+                    <option value="2">Due date</option>
+                  </select>
+                  <a
+                    href="#!"
+                    style="color: #23af89"
+                    data-mdb-tooltip-init
+                    title="Ascending"
+                    ><i class="fas fa-sort-amount-down-alt ms-2"></i
+                  ></a>
+                </div>
+
+                <ul
+                  class="list-group list-group-horizontal rounded-0 bg-transparent"
+                >
+                  <li
+                    class="list-group-item d-flex align-items-center ps-0 pe-3 py-1 rounded-0 border-0 bg-transparent"
+                  >
+                    <div class="form-check">
+                      <input
+                        class="form-check-input me-0"
+                        type="checkbox"
+                        value=""
+                        id="flexCheckChecked1"
+                        aria-label="..."
+                        checked
+                      />
+                    </div>
+                  </li>
+                  <li
+                    class="list-group-item px-3 py-1 d-flex align-items-center flex-grow-1 border-0 bg-transparent"
+                  >
+                    <p class="lead fw-normal mb-0">
+                      Buy groceries for next week
+                    </p>
+                  </li>
+                  <li
+                    class="list-group-item ps-3 pe-0 py-1 rounded-0 border-0 bg-transparent"
+                  >
+                    <div class="d-flex flex-row justify-content-end mb-1">
+                      <a
+                        href="#!"
+                        class="text-info"
+                        data-mdb-tooltip-init
+                        title="Edit todo"
+                        ><i class="fas fa-pencil-alt me-3"></i
+                      ></a>
+                      <a
+                        href="#!"
+                        class="text-danger"
+                        data-mdb-tooltip-init
+                        title="Delete todo"
+                        ><i class="fas fa-trash-alt"></i
+                      ></a>
+                    </div>
+                    <div class="text-end text-muted">
+                      <a
+                        href="#!"
+                        class="text-muted"
+                        data-mdb-tooltip-init
+                        title="Created date"
+                      >
+                        <p class="small mb-0">
+                          <i class="fas fa-info-circle me-2"></i>28th Jun 2020
+                        </p>
+                      </a>
+                    </div>
+                  </li>
+                </ul>
+                <ul class="list-group list-group-horizontal rounded-0">
+                  <li
+                    class="list-group-item d-flex align-items-center ps-0 pe-3 py-1 rounded-0 border-0 bg-transparent"
+                  >
+                    <div class="form-check">
+                      <input
+                        class="form-check-input me-0"
+                        type="checkbox"
+                        value=""
+                        id="flexCheckChecked2"
+                        aria-label="..."
+                      />
+                    </div>
+                  </li>
+                  <li
+                    class="list-group-item px-3 py-1 d-flex align-items-center flex-grow-1 border-0 bg-transparent"
+                  >
+                    <p class="lead fw-normal mb-0">Renew car insurance</p>
+                  </li>
+                  <li
+                    class="list-group-item px-3 py-1 d-flex align-items-center border-0 bg-transparent"
+                  >
+                    <div
+                      class="py-2 px-3 me-2 border border-warning rounded-3 d-flex align-items-center bg-body-tertiary"
+                    >
+                      <p class="small mb-0">
+                        <a href="#!" data-mdb-tooltip-init title="Due on date">
+                          <i
+                            class="fas fa-hourglass-half me-2 text-warning"
+                          ></i>
+                        </a>
+                        28th Jun 2020
+                      </p>
+                    </div>
+                  </li>
+                  <li
+                    class="list-group-item ps-3 pe-0 py-1 rounded-0 border-0 bg-transparent"
+                  >
+                    <div class="d-flex flex-row justify-content-end mb-1">
+                      <a
+                        href="#!"
+                        class="text-info"
+                        data-mdb-tooltip-init
+                        title="Edit todo"
+                        ><i class="fas fa-pencil-alt me-3"></i
+                      ></a>
+                      <a
+                        href="#!"
+                        class="text-danger"
+                        data-mdb-tooltip-init
+                        title="Delete todo"
+                        ><i class="fas fa-trash-alt"></i
+                      ></a>
+                    </div>
+                    <div class="text-end text-muted">
+                      <a
+                        href="#!"
+                        class="text-muted"
+                        data-mdb-tooltip-init
+                        title="Created date"
+                      >
+                        <p class="small mb-0">
+                          <i class="fas fa-info-circle me-2"></i>28th Jun 2020
+                        </p>
+                      </a>
+                    </div>
+                  </li>
+                </ul>
+                <ul class="list-group list-group-horizontal rounded-0 mb-2">
+                  <li
+                    class="list-group-item d-flex align-items-center ps-0 pe-3 py-1 rounded-0 border-0 bg-transparent"
+                  >
+                    <div class="form-check">
+                      <input
+                        class="form-check-input me-0"
+                        type="checkbox"
+                        value=""
+                        id="flexCheckChecked3"
+                        aria-label="..."
+                      />
+                    </div>
+                  </li>
+                  <li
+                    class="list-group-item px-3 py-1 d-flex align-items-center flex-grow-1 border-0 bg-transparent"
+                  >
+                    <p
+                      class="lead fw-normal mb-0 bg-body-tertiary w-100 ms-n2 ps-2 py-1 rounded"
+                    >
+                      Sign up for online course
+                    </p>
+                  </li>
+                  <li
+                    class="list-group-item ps-3 pe-0 py-1 rounded-0 border-0 bg-transparent"
+                  >
+                    <div class="d-flex flex-row justify-content-end mb-1">
+                      <a
+                        href="#!"
+                        class="text-danger"
+                        data-mdb-tooltip-init
+                        title="Delete todo"
+                        ><i class="fas fa-trash-alt"></i
+                      ></a>
+                    </div>
+                    <div class="text-end text-muted">
+                      <a
+                        href="#!"
+                        class="text-muted"
+                        data-mdb-tooltip-init
+                        title="Created date"
+                      >
+                        <p class="small mb-0">
+                          <i class="fas fa-info-circle me-2"></i>28th Jun 2020
+                        </p>
+                      </a>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- Popperjs -->
+  
+
+   
+    <!-- JavaScript -->
+<script src="date-time/js/bootstrap-datetimepicker.js"></script>
+<!-- Languages -->
+<script src="date-time/js/locales/bootstrap-datetimepicker.fr.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $(".default").datetimepicker({
+          todayHighlight:true,
+          initialDate:new Date(),
+        });
+
+
+        $.ajax({
+
+        })
+
+
+      });
+    </script>
+  
+  </body>
+</html>

@@ -7,6 +7,8 @@ const {getTodos,createTodos} = require('../controllers/todoController.js');
 
 router.get('/',getTodos);
 
+router.post('/create',createTodos);
+
 
 
 

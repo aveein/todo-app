@@ -24,7 +24,7 @@ const  Filtertodos = async (req, res) => {
                 },
          },
          order: [
-            // Will escape title and validate DESC against a list of valid direction parameters
+            // Will escape id and validate DESC against a list of valid direction parameters
             ['id', 'DESC'],
          ]
          });
@@ -32,7 +32,7 @@ const  Filtertodos = async (req, res) => {
 
          todos = await Todo.findAll({
             order: [
-                // Will escape title and validate DESC against a list of valid direction parameters
+                // Will escape id and validate DESC against a list of valid direction parameters
                 ['id', 'DESC'],
              ]
          });

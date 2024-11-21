@@ -22,11 +22,20 @@ const  Filtertodos = async (req, res) => {
                 status: {
                   [Op.eq]: req.query.status,
                 },
-         }
+         },
+         order: [
+            // Will escape title and validate DESC against a list of valid direction parameters
+            ['id', 'DESC'],
+         ]
          });
     }else{
 
-         todos = await Todo.findAll();
+         todos = await Todo.findAll({
+            order: [
+                // Will escape title and validate DESC against a list of valid direction parameters
+                ['id', 'DESC'],
+             ]
+         });
     }
     
     ejs.renderFile('views/todos.ejs',{todos:todos}, function(err, data) {

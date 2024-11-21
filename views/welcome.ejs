@@ -169,8 +169,9 @@
             type: "POST",
             data: $("#form").serialize(),
             success: function (re) {
-              // document.getElementById("form").reset();
-              //  $('#exampleModal').modal('hide');
+              getAllTodo();
+              document.getElementById("form").reset();
+               $('#exampleModal').modal('hide');
             },
             error: function (res) {
               console.log(res.responseJSON.errors);

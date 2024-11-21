@@ -19,24 +19,24 @@
       crossorigin="anonymous"
     />
     <!-- Stylesheet -->
-<link rel="stylesheet" href="date-time/css/bootstrap-datetimepicker.css" />
+    <link rel="stylesheet" href="date-time/css/bootstrap-datetimepicker.css" />
 
-  
     <link rel="stylesheet" href="style.css" />
     <title>Todo App</title>
   </head>
   <body>
     <section class="gradient-custom-2">
-      <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="container py-5">
+        <div class="row d-flex justify-content-center align-items-center">
           <div class="col">
             <div
               class="card"
               id="list1"
               style="border-radius: 0.75rem; background-color: #eff1f2"
             >
-            <!-- show modal -->
-            <%- include('./partials/modal.ejs') %>
+              <!-- show modal -->
+              <%- include('./partials/modal.ejs') %> <%-
+              include('./partials/update-modal.ejs') %>
               <div class="card-body py-4 px-4 px-md-5">
                 <div class="text-center pt-3 pb-2">
                   <img
@@ -65,17 +65,12 @@
                   class="d-flex justify-content-end align-items-center mb-4 pt-2 pb-3"
                 >
                   <p class="small mb-0 me-2 text-muted">Filter</p>
-                  <select data-mdb-select-init>
-                    <option value="1">All</option>
-                    <option value="2">Completed</option>
-                    <option value="3">Active</option>
-                    <option value="4">Has due date</option>
+                  <select id="select_filter" data-mdb-select-init>
+                    <option value="all">All</option>
+                    <option value="1">Done</option>
+                    <option value="0">Upcomming</option>
                   </select>
-                  <p class="small mb-0 ms-4 me-2 text-muted">Sort</p>
-                  <select data-mdb-select-init>
-                    <option value="1">Added date</option>
-                    <option value="2">Due date</option>
-                  </select>
+
                   <a
                     href="#!"
                     style="color: #23af89"
@@ -85,9 +80,7 @@
                   ></a>
                 </div>
 
-                <div class="result">
-                  <%- include('./todos.ejs') %>
-                </div>
+                <div id="result"></div>
               </div>
             </div>
           </div>
@@ -105,59 +98,151 @@
     ></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <!-- Popperjs -->
-  
 
-   
     <!-- JavaScript -->
-<script src="date-time/js/bootstrap-datetimepicker.js"></script>
-<!-- Languages -->
-<script src="date-time/js/locales/bootstrap-datetimepicker.fr.js"></script>
+    <script src="date-time/js/bootstrap-datetimepicker.js"></script>
+    <!-- Languages -->
+    <script src="date-time/js/locales/bootstrap-datetimepicker.fr.js"></script>
     <script type="text/javascript">
-      $(document).ready(function(){
+      $(document).ready(function () {
         $(".default").datetimepicker({
-          todayHighlight:true,
-          initialDate:new Date(),
+          todayHighlight: true,
+          initialDate: new Date(),
         });
-        $("#form").on('submit', (function(e) {
-     
-          e.preventDefault();
-          $('input').removeClass('is-invalid');
-          $('textarea').removeClass('is-invalid');
+        function getAllTodo(){
           $.ajax({
-            url: $(this).attr('action'),
-            type: "POST",
-            data: $('#form').serialize(),
-            success:function(re){
+          url: "/filter-todos",
+          success: function (e) {
+            $("#result").html(e.views);
+          },
+        });
+        }
+
+        getAllTodo();
+       
+
+        $("#select_filter").on("change", function () {
+          $.ajax({
+            data: { status: $(this).val() },
+            url: "/filter-todos",
+            success: function (e) {
+              $("#result").html(e.views);
+            },
+          });
+        });
+
+        $(document).on("click", ".editTodo", function () {
+          console.log($(this).val());
+          var id = $(this).data("id");
+          $.ajax({
+            url: "/edit/" + id,
+            success: function (re) {
+              $("#updateModal").modal("show");
+              $('#updateModal').find('form').attr('action','update/'+re.id)
+              $("#updateModal").find("#update_title").val(re.name);
+              $("#updateModal").find("#update_due_date").val(re.due_date);
+              $("#updateModal").find("#update_description").val(re.description);
+
               // document.getElementById("form").reset();
               //  $('#exampleModal').modal('hide');
-
             },
-            error:function(res){
+          });
+        });
+        $(document).on("click", ".updateStatus", function () {
+          console.log($(this).val());
+          $.ajax({
+            url: "/update/status",
+            type: "POST",
+            data: { status: $(this).is(":checked"), id: $(this).data("id") },
+            success: function (re) {
+              // document.getElementById("form").reset();
+              //  $('#exampleModal').modal('hide');
+            },
+          });
+        });
+        $("#form").on("submit", function (e) {
+          e.preventDefault();
+          $("input").removeClass("is-invalid");
+          $("textarea").removeClass("is-invalid");
+          $.ajax({
+            url: $(this).attr("action"),
+            type: "POST",
+            data: $("#form").serialize(),
+            success: function (re) {
+              // document.getElementById("form").reset();
+              //  $('#exampleModal').modal('hide');
+            },
+            error: function (res) {
               console.log(res.responseJSON.errors);
               let errors = res.responseJSON.errors;
-           
-              if(errors){
-                errors.forEach(function(item,index){
-                console.log($(`#${item.path}`).addClass('is-invalid'))
-                $(`#${item.path}`).siblings('.invalid-feedback').text(item.msg)
-                console.log(item.path)
-              })
-              }else{
-          
-                $('#error-message').removeClass('d-none').text(res.responseJSON.message)
+
+              if (errors) {
+                errors.forEach(function (item, index) {
+                  console.log($(`#${item.path}`).addClass("is-invalid"));
+                  $(`#${item.path}`)
+                    .siblings(".invalid-feedback")
+                    .text(item.msg);
+                  console.log(item.path);
+                });
+              } else {
+                $("#error-message")
+                  .removeClass("d-none")
+                  .text(res.responseJSON.message);
               }
+            },
+          });
+        });
+
+        $("#update_form").on("submit", function (e) {
+          e.preventDefault();
+          $("input").removeClass("is-invalid");
+          $("textarea").removeClass("is-invalid");
+          $.ajax({
+            url: $(this).attr("action"),
+            type: "PUT",
+            data: $("#update_form").serialize(),
+            success: function (re) {
+              getAllTodo();
            
-            
-            }
-          })
+              document.getElementById("update_form").reset();
+               $('#updateModal').modal('hide');
+            },
+            error: function (res) {
+              console.log(res.responseJSON.errors);
+              let errors = res.responseJSON.errors;
 
-        }));
+              if (errors) {
+                errors.forEach(function (item, index) {
+                  $(`#update_${item.path}`).addClass("is-invalid");
+                  
+                  $(`#update_${item.path}`)
+                    .siblings(".invalid-feedback")
+                    .text(item.msg);
+                  console.log(item.path);
+                });
+              } else {
 
-    
+                $("#update-error-message")
+                  .removeClass("d-none")
+                  .text(res.responseJSON.message);
+              }
+            },
+          });
+        });
 
-
+        $(document).on("click", ".deleteTodo", function () {
+         var thisID = $(this);
+          $.ajax({
+            url: "/delete/"+$(this).data('id'),
+            type: "DELETE",
+            success: function (re) {
+              thisID.closest('ul').remove()
+              // document.getElementById("form").reset();
+              //  $('#exampleModal').modal('hide');
+            },
+          });
+        });
       });
     </script>
-  
   </body>
 </html>

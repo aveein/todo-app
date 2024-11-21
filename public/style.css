@@ -1,6 +1,7 @@
 
 
   .gradient-custom-2 {
+   
     /* fallback for old browsers */
     background: #7e40f6;
   
@@ -35,4 +36,8 @@
     color: #d73925;
     content: '*';
     display: inline;
+}
+
+.container{
+  min-height: 600px;
 }

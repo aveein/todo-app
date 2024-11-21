@@ -18,42 +18,55 @@ aria-hidden="true"
         aria-label="Close"
       ></button>
     </div>
-    <form action="/create" method="post">
-    <div class="modal-body">
-    
-        <div class="mb-3">
-          <label for="title" class="form-label required"
-            >Todo Title</label
-          >
-          <input
-            name="title"
-            type="text"
-            class="form-control"
-            id="title"
-            aria-describedby="emailHelp"
-          />
-          <div id="emailHelp" class="form-text">
-            Enter Suitable Title for Todo
+    <form action="/create" method="post" id="form">
+      <div class="modal-body">
+          <div id="error-message" class="alert alert-danger  d-none" role="alert">
+            
           </div>
-        </div>
-        <div class="mb-3">
-          <label for="description" class="form-label required"
-            >Description</label
-          >
-          <!-- <input type="password" class="form-control" id="password"> -->
-          <textarea
-            name="description"
-            class="form-control"
-            id=""
-          ></textarea>
-        </div>
-        <div class="mb-3">
-          <label for="date" class="form-label required"
-          >Due</label>
-          <input type="text" name="due_date" id="date"  class="form-control default">
-        </div>
+          <div class="mb-3">
+            <label for="title" class="form-label required"
+              >Todo Title</label
+            >
+            <input
+              name="title"
+              type="text"
+              class="form-control"
+              id="title"
+              aria-describedby="emailHelp"
+            />
+            <div id="title" class="invalid-feedback">
+              Error
+            </div>
+            <div id="emailHelp" class="form-text">
+              Enter Suitable Title for Todo
+            </div>
       
-    </div>
+          </div>
+          <div class="mb-3">
+            <label for="date" class="form-label required"
+            >Due</label>
+            <input type="text" name="due_date" id="due_date"  class="form-control default">
+            <div id="due_date" class="invalid-feedback">
+              Error
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="description" class="form-label required"
+              >Description</label
+            >
+            <!-- <input type="password" class="form-control" id="password"> -->
+            <textarea
+              name="description"
+              class="form-control"
+              id="description"
+            ></textarea>
+            <div id="description" class="invalid-feedback">
+              Error
+            </div>
+          </div>
+        
+        
+      </div>
     <div class="modal-footer">
       <button
         type="button"

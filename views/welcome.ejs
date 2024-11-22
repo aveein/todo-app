@@ -22,6 +22,8 @@
     <link rel="stylesheet" href="date-time/css/bootstrap-datetimepicker.css" />
 
     <link rel="stylesheet" href="style.css" />
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <title>Todo App</title>
   </head>
   <body>
@@ -103,8 +105,12 @@
     <script src="date-time/js/bootstrap-datetimepicker.js"></script>
     <!-- Languages -->
     <script src="date-time/js/locales/bootstrap-datetimepicker.fr.js"></script>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
     <script type="text/javascript">
       $(document).ready(function () {
+
         $(".default").datetimepicker({
           todayHighlight: true,
           initialDate: new Date(),
@@ -150,11 +156,14 @@
         });
         $(document).on("click", ".updateStatus", function () {
           console.log($(this).val());
+          var status = $(this).is(":checked");
           $.ajax({
             url: "/update/status",
             type: "POST",
-            data: { status: $(this).is(":checked"), id: $(this).data("id") },
+            data: { status: status, id: $(this).data("id") },
             success: function (re) {
+              var message = status ? "Successfully Updated To Done" : "Changed To Upcomming"
+              showMessage(message)
               // document.getElementById("form").reset();
               //  $('#exampleModal').modal('hide');
             },
@@ -170,6 +179,7 @@
             data: $("#form").serialize(),
             success: function (re) {
               getAllTodo();
+              showMessage('Successfully Created')
               document.getElementById("form").reset();
                $('#exampleModal').modal('hide');
             },
@@ -204,7 +214,7 @@
             data: $("#update_form").serialize(),
             success: function (re) {
               getAllTodo();
-           
+              showMessage('Successfully Updated')
               document.getElementById("update_form").reset();
                $('#updateModal').modal('hide');
             },
@@ -237,6 +247,8 @@
             url: "/delete/"+$(this).data('id'),
             type: "DELETE",
             success: function (re) {
+
+              showMessage('Successfully Removed')
               thisID.closest('ul').remove()
               // document.getElementById("form").reset();
               //  $('#exampleModal').modal('hide');
@@ -244,6 +256,23 @@
           });
         });
       });
+
+      function showMessage(message){
+        Toastify({
+          text: message,
+          duration: 3000,
+          destination: "https://github.com/apvarun/toastify-js",
+          newWindow: true,
+          close: true,
+          gravity: "top", // `top` or `bottom`
+          position: "right", // `left`, `center` or `right`
+          stopOnFocus: true, // Prevents dismissing of toast on hover
+          style: {
+            background: "linear-gradient(to right, #00b09b, #96c93d)",
+          },
+          onClick: function(){} // Callback after click
+        }).showToast();
+      }
     </script>
   </body>
 </html>
